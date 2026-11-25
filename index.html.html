@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الأمين | نادي االخصومات - 16019</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <style>
+    :root {
+      --brand-orange: #ea580c;
+      --brand-orange-dark: #c2410c;
+      --brand-orange-light: #fff7ed;
+      --brand-charcoal: #27272a;
+      --brand-muted: #52525b;
+      --brand-border: #fed7aa;
+    }
+    * { box-sizing: border-box; font-family: Tahoma, Arial, sans-serif; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: var(--brand-charcoal);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(234, 88, 12, 0.12), transparent 36%),
+        radial-gradient(circle at 88% 18%, rgba(249, 115, 22, 0.10), transparent 38%),
+        radial-gradient(circle at 50% 95%, rgba(194, 65, 12, 0.08), transparent 45%),
+        linear-gradient(160deg, #fffaf5 0%, #f8fafc 55%, #ffedd5 100%);
+      background-attachment: fixed;
+    }
+    header {
+      background: linear-gradient(120deg, #27272a 0%, #3f3f46 58%, #c2410c 100%);
+      color: #fff;
+      padding: 14px 16px;
+      box-shadow: 0 6px 22px rgba(39, 39, 42, 0.18);
+      border-bottom: 3px solid var(--brand-orange);
+    }
+    .wrap { max-width: 860px; width: 100%; margin: 0 auto; padding: 0 12px; }
+    .hdr { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+    .brand-left { display: flex; align-items: center; gap: 12px; }
+    .logo-circle {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2.5px solid #fb923c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    }
+    .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+    .logo-fallback {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--brand-orange-dark);
+      text-align: center;
+      line-height: 1.2;
+      padding: 2px;
+    }
+    .hdr h1 { margin: 0; font-size: 19px; letter-spacing: 0.3px; }
+    .hdr p { margin: 3px 0 0; font-size: 12px; color: #fed7aa; }
+    .nav { display: flex; gap: 8px; }
+    .nav button {
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      padding: 8px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+      transition: all 0.2s ease;
+    }
+    .nav button:hover { background: rgba(255, 255, 255, 0.22); transform: translateY(-1px); }
+    .nav button.active {
+      background: #ffffff;
+      color: var(--brand-orange-dark);
+      border-color: #ffffff;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+    }
+    main { flex: 1; padding: 24px 0 40px; }
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--brand-border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 10px 28px rgba(39, 39, 42, 0.07);
+      max-width: 540px;
+      margin: 0 auto 16px;
+    }
+    .card.wide { max-width: 820px; }
+    h2, h3 { margin: 0 0 8px; color: var(--brand-charcoal); }
+    h2 span, h3 span { color: var(--brand-orange); }
+    .muted { color: var(--brand-muted); font-size: 13px; margin: 0 0 14px; }
+    .client-guide {
+      background: linear-gradient(135deg, #fff7ed 0%, #ffffff 100%);
+      border: 1px solid #fdba74;
+      border-radius: 14px;
+      padding: 13px 15px;
+      margin-bottom: 16px;
+    }
+    .client-guide-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--brand-orange-dark);
+      margin: 0 0 8px;
+    }
+    .client-guide-list {
+      margin: 0;
+      padding-right: 18px;
+      font-size: 12px;
+      line-height: 1.75;
+      color: #3f3f46;
+    }
+    .client-guide-list li { margin-bottom: 3px; }
+    label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px; color: var(--brand-charcoal); }
+    input {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1px solid #e4e4e7;
+      background: #ffffff;
+      border-radius: 11px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--brand-orange);
+      box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15);
+    }
+    .btn {
+      width: 100%;
+      border: none;
+      padding: 11px 14px;
+      border-radius: 11px;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1); }
+    .btn-orange { background: linear-gradient(135deg, #f97316, #ea580c); color: #fff; }
+    .btn-orange:hover { background: linear-gradient(135deg, #ea580c, #c2410c); }
+    .btn-charcoal { background: linear-gradient(135deg, #3f3f46, #27272a); color: #fff; }
+    .btn-charcoal:hover { background: linear-gradient(135deg, #27272a, #18181b); }
+    .btn-red { background: #dc2626; color: #fff; }
+    .btn-sm { width: auto; padding: 9px 14px; font-size: 13px; }
+    .btn-danger { background: #fee2e2; color: #b91c1c; }
+    .hidden { display: none !important; }
+    .banner {
+      max-width: 820px;
+      margin: 0 auto 14px;
+      padding: 11px 15px;
+      border-radius: 13px;
+      font-size: 13px;
+      font-weight: bold;
+      background: #fff7ed;
+      color: #9a3412;
+      border: 1px solid #fdba74;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.08);
+    }
+    .banner.err { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+    .member-card {
+      background:
+        radial-gradient(circle at 88% 15%, rgba(251, 146, 60, 0.24), transparent 46%),
+        linear-gradient(135deg, #27272a 0%, #3f3f46 58%, #9a3412 100%);
+      color: #fff;
+      border-radius: 22px;
+      padding: 22px;
+      max-width: 460px;
+      margin: 0 auto;
+      box-shadow: 0 14px 30px rgba(39, 39, 42, 0.24);
+      border: 1.5px solid rgba(251, 146, 60, 0.45);
+    }
+    .member-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .badge { display: inline-block; background: rgba(251, 146, 60, 0.24); border: 1px solid rgba(251, 146, 60, 0.45); color: #ffedd5; padding: 4px 11px; border-radius: 999px; font-size: 11px; font-weight: bold; }
+    .qr-wrap { background: #fff; padding: 8px; border-radius: 13px; text-align: center; min-width: 96px; box-shadow: 0 4px 10px rgba(0,0,0,0.14); }
+    .qr-sub { margin-top: 4px; font-size: 10px; font-weight: bold; color: var(--brand-orange-dark); word-break: break-all; }
+    .member-bot { margin-top: 18px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.18); display: flex; justify-content: space-between; align-items: flex-end; }
+    .pts-big { font-size: 28px; font-weight: 800; color: #fb923c; }
+    .link-btn { background: none; border: none; color: #fed7aa; text-decoration: underline; cursor: pointer; font-size: 12px; }
+    .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .row input { flex: 1; min-width: 165px; margin-bottom: 0; }
+    .scanner-box { margin-top: 12px; padding: 12px; border: 1px solid #fdba74; background: #fff7ed; border-radius: 14px; }
+    .scanner-hdr { display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: bold; color: #9a3412; margin-bottom: 8px; }
+    #qr-reader { width: 100%; border-radius: 10px; overflow: hidden; }
+    .customer-box { margin-top: 16px; border-top: 1px solid #f4f4f5; padding-top: 14px; }
+    .info-box {
+      background: linear-gradient(135deg, #fff7ed 0%, #fafafa 100%);
+      border: 1px solid #fed7aa;
+      border-radius: 14px;
+      padding: 13px 15px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px, 1fr)); gap: 12px; }
+    .box { border: 1px solid #e4e4e7; background: #ffffff; border-radius: 14px; padding: 13px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .stat {
+      background: linear-gradient(180deg, #ffffff 0%, #fff7ed 100%);
+      border: 1px solid #fed7aa;
+      border-radius: 15px;
+      padding: 14px;
+      text-align: center;
+    }
+    .stat p { margin: 0; font-size: 12px; color: var(--brand-muted); }
+    .stat strong { display: block; font-size: 22px; color: var(--brand-orange-dark); margin-top: 4px; }
+    .tx-item { padding: 10px 0; border-bottom: 1px solid #f4f4f5; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .plus { color: #15803d; font-weight: bold; }
+    .minus { color: var(--brand-orange-dark); font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap hdr">
+      <div class="brand-left">
+        <div class="logo-circle">
+          <img src="logo.png" alt="شعار الأمين" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+          <div class="logo-fallback">16019<br/>الأمين</div>
+        </div>
+        <div>
+          <h1>صيدليات الأمين • 16019</h1>
+          <p>نادي المكافآت</p>
+        </div>
+      </div>
+      <div class="nav">
+        <button id="nav-customer" type="button" class="active">العملاء</button>
+        <button id="nav-cashier" type="button">الكاشير</button>
+        <button id="nav-owner" type="button">المالك</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="status-banner" class="banner hidden"></div>
+
+    <!-- 1. العملاء -->
+    <section id="tab-customer">
+      <div id="customer-login-box" class="card">
+        <h2>أهلاً بك في نادي ولاء <span>الأمين</span></h2>
+        <p class="muted">سجل برقم موبايلك لمتابعة رصيد نقاطك وعرض كود QR الخاص بك.</p>
+
+        <div class="client-guide">
+          <p class="client-guide-title">إزاي النظام بيشتغل معاك؟</p>
+          <ul class="client-guide-list">
+            <li><strong>كارتك الرقمي:</strong> اكتب رقم موبايلك (واسمك لو أول مرة) ليظهر كارت العضوية وكود <strong>QR</strong> الخاص بك.</li>
+            <li><strong>جمع النقاط:</strong> عند الشراء من الصيدلية وإدخال الفاتورة عند الكاشير، تُضاف نقاطك تلقائياً حسب النسبة المعتمدة.</li>
+            <li><strong>صرف النقاط:</strong> يمكنك طلب خصم نقاط من رصيدك عند الكاشير في أي وقت حسب رصيدك الحالي.</li>
+          </ul>
+        </div>
+
+        <form id="customer-form">
+          <label for="cust-phone">رقم الموبايل</label>
+          <input id="cust-phone" type="tel" required placeholder="01012345678" />
+          <label for="cust-name">الاسم (لو بتسجل لأول مرة)</label>
+          <input id="cust-name" type="text" placeholder="اكتب اسمك" />
+          <button type="submit" class="btn btn-orange">عرض كارت العضوية</button>
+        </form>
+      </div>
+
+      <div id="customer-card-box" class="hidden">
+        <div class="member-card">
+          <div class="member-top">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div class="logo-circle" style="width:44px;height:44px;">
+                <img src="logo.png" alt="شعار الأمين" onload="this.nextElementSibling.style.display='none'" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" />
+                <div class="logo-fallback" style="font-size:9px;">16019<br/>الأمين</div>
+              </div>
+              <div>
+                <span class="badge">عضو مميز • الأمين 16019</span>
+                <h3 id="card-name" style="color:#fff;margin-top:8px;">---</h3>
+                <div id="card-phone" style="font-size:13px;color:#fed7aa;">---</div>
+              </div>
+            </div>
+            <div class="qr-wrap">
+              <canvas id="qrcode-canvas" width="76" height="76"></canvas>
+              <div id="qr-val" class="qr-sub">---</div>
+            </div>
+          </div>
+          <div class="member-bot">
+            <div>
+              <div style="font-size:12px;color:#e4e4e7;">رصيد النقاط الحالي</div>
+              <div class="pts-big"><span id="card-points">0</span> <span style="font-size:13px;font-weight:normal;color:#fed7aa;">نقطة</span></div>
+            </div>
+            <button id="btn-logout-customer" type="button" class="link-btn">تغيير الرقم</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. الكاشير -->
+    <section id="tab-cashier" class="hidden">
+      <div class="card">
+        <h2>لوحة <span>الكاشير</span></h2>
+        <p class="muted">امسح كود QR للعميل أو ابحث برقم الموبايل لإظهار بياناته وإضافة فاتورة أو خصم نقاط.</p>
+
+        <div class="row">
+          <input id="cashier-search-phone" type="tel" placeholder="رقم موبايل العميل أو كود QR..." />
+          <button id="btn-find-customer" type="button" class="btn btn-orange btn-sm">بحث</button>
+          <button id="btn-start-qr" type="button" class="btn btn-charcoal btn-sm">مسح QR</button>
+          <button id="btn-stop-qr" type="button" class="btn btn-red btn-sm hidden">إيقاف</button>
+        </div>
+
+        <div id="qr-scanner-box" class="scanner-box hidden">
+          <div class="scanner-hdr">
+            <span>وجّه الكاميرا نحو QR كارت العميل</span>
+            <span id="qr-status">جاري التشغيل...</span>
+          </div>
+          <div id="qr-reader"></div>
+        </div>
+
+        <div id="cashier-customer-panel" class="customer-box hidden">
+          <div class="info-box">
+            <div>
+              <div id="c-name" style="font-weight:bold;font-size:16px;color:#27272a;"></div>
+              <div id="c-phone" style="font-size:12px;color:#52525b;margin-top:2px;"></div>
+            </div>
+            <div style="text-align:left;">
+              <div style="font-size:11px;color:#52525b;">الرصيد الحالي</div>
+              <div id="c-points" style="font-size:20px;font-weight:800;color:#c2410c;"></div>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="box">
+              <label for="bill-amount" style="color:#c2410c;">إضافة فاتورة (زيادة نقاط)</label>
+              <input id="bill-amount" type="number" min="1" step="any" placeholder="قيمة الفاتورة بالجنيه" />
+              <button id="btn-add-points" type="button" class="btn btn-orange">إضافة الفاتورة</button>
+            </div>
+
+            <div class="box">
+              <label for="redeem-points" style="color:#3f3f46;">خصم نقاط</label>
+              <input id="redeem-points" type="number" min="1" step="1" placeholder="عدد النقاط المراد خصمها" />
+              <button id="btn-redeem-points" type="button" class="btn btn-charcoal">خصم نقاط</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. دخول المالك -->
+    <section id="owner-auth-box" class="hidden">
+      <div class="card">
+        <h2>دخول لوحة <span>المالك</span> فقط</h2>
+        <p class="muted">لا يُسمح بالدخول إلا لحساب المالك المسجل.</p>
+        <form id="owner-login-form">
+          <label for="owner-email-input">البريد الإلكتروني للمالك</label>
+          <input id="owner-email-input" type="email" required value="admin" />
+          <label for="owner-password-input">كلمة المرور</label>
+          <input id="owner-password-input" type="password" required placeholder="أدخل كلمة المرور" />
+          <button type="submit" class="btn btn-orange">تسجيل دخول المالك</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 4. لوحة المالك -->
+    <section id="tab-owner" class="hidden">
+      <div class="card wide" style="padding:14px 18px;">
+        <div class="row" style="justify-content:space-between;">
+          <span id="owner-session-label" style="font-size:13px;font-weight:bold;color:#c2410c;">حساب المالك مفعّل</span>
+          <button id="btn-owner-logout" type="button" class="btn btn-danger btn-sm">خروج</button>
+        </div>
+      </div>
+
+      <div class="card wide">
+        <div class="stats">
+          <div class="stat"><p>إجمالي العملاء</p><strong id="stat-customers">0</strong></div>
+          <div class="stat"><p>إجمالي النقاط</p><strong id="stat-points">0</strong></div>
+          <div class="stat"><p>نقاط لكل 1 جنيه</p><strong id="stat-rate">1</strong></div>
+        </div>
+
+        <h3>إعدادات <span>النظام</span></h3>
+        <div class="grid-2">
+          <div>
+            <label for="set-rate">نقاط لكل 1 جنيه</label>
+            <input id="set-rate" type="number" min="0.1" step="0.1" />
+          </div>
+          <div>
+            <label for="set-cashier-pin">رمز الكاشير</label>
+            <input id="set-cashier-pin" type="text" />
+          </div>
+        </div>
+        <label for="set-owner-pass">كلمة سر المالك الجديدة (اختياري)</label>
+        <input id="set-owner-pass" type="password" placeholder="اتركها فارغة لعدم التغيير" />
+        <button id="btn-save-settings" type="button" class="btn btn-orange">حفظ الإعدادات</button>
+      </div>
+
+      <div class="card wide">
+        <h3>آخر <span>العمليات</span></h3>
+        <div id="transactions-list" style="font-size:13px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const OWNER_EMAIL = 'admin@elamin.local';
+    const STORAGE_KEY = 'ElAmin@2026';
+
+    let ownerAuthenticated = false;
+    let activeCashierCustomer = null;
+    let qrScanner = null;
+    let isQrRunning = false;
+
+    function showBanner(msg, isErr) {
+      const el = document.getElementById('status-banner');
+      el.textContent = msg;
+      el.className = isErr ? 'banner err' : 'banner';
+    }
+
+    function getDefaultStore() {
+      return {
+        settings: {
+          points_per_pound: 1,
+          cashier_pin: '16019',
+          owner_email: OWNER_EMAIL,
+          owner_pass: 'ElAmin@2026'
+        },
+        customers: [],
+        transactions: []
+      };
+    }
+
+    function loadStore() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          const init = getDefaultStore();
+          saveStore(init);
+          return init;
+        }
+        const parsed = JSON.parse(raw);
+        return {
+          settings: { ...getDefaultStore().settings, ...(parsed.settings || {}) },
+          customers: Array.isArray(parsed.customers) ? parsed.customers : [],
+          transactions: Array.isArray(parsed.transactions) ? parsed.transactions : []
+        };
+      } catch (_) {
+        return getDefaultStore();
+      }
+    }
+
+    function saveStore(data) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch (_) {}
+    }
+
+    function setActiveNav(id) {
+      ['nav-customer', 'nav-cashier', 'nav-owner'].forEach(btnId => {
+        const b = document.getElementById(btnId);
+        if (b) b.className = (btnId === id) ? 'active' : '';
+      });
+    }
+
+    function hideAll() {
+      ['tab-customer', 'tab-cashier', 'owner-auth-box', 'tab-owner'].forEach(secId => {
+        document.getElementById(secId).classList.add('hidden');
+      });
+    }
+
+    function openCustomerTab() {
+      if (isQrRunning) stopQrScanner();
+      setActiveNav('nav-customer');
+      hideAll();
+      document.getElementById('tab-customer').classList.remove('hidden');
+    }
+
+    function openCashierTab() {
+      const store = loadStore();
+      const pin = prompt('أدخل رمز الكاشير):');
+      if (pin === null) return;
+      if (pin.trim() !== String(store.settings.cashier_pin)) {
+        showBanner('رمز الكاشير غير صحيح.', true);
+        return;
+      }
+      setActiveNav('nav-cashier');
+      hideAll();
+      document.getElementById('tab-cashier').classList.remove('hidden');
+    }
+
+    function openOwnerTab() {
+      if (isQrRunning) stopQrScanner();
+      setActiveNav('nav-owner');
+      hideAll();
+      if (ownerAuthenticated) {
+        document.getElementById('tab-owner').classList.remove('hidden');
+        renderOwnerDashboard();
+      } else {
+        document.getElementById('owner-auth-box').classList.remove('hidden');
+      }
+    }
+
+    function drawVisualMatrix(text) {
+      const canvas = document.getElementById('qrcode-canvas');
+      if (!canvas || !canvas.getContext) return;
+      const ctx = canvas.getContext('2d');
+      const size = canvas.width;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, size, size);
+
+      let hash = 2166136261;
+      for (let i = 0; i < text.length; i++) {
+        hash ^= text.charCodeAt(i);
+        hash = Math.imul(hash, 16777619);
+      }
+
+      const cells = 11;
+      const pad = 6;
+      const cellSize = Math.floor((size - pad * 2) / cells);
+
+      const corners = [
+        [0, 0],
+        [cells - 3, 0],
+        [0, cells - 3]
+      ];
+      corners.forEach(([cx, cy]) => {
+        for (let dx = 0; dx < 3; dx++) {
+          for (let dy = 0; dy < 3; dy++) {
+            ctx.fillStyle = (cx === cells - 3 && cy === 0) ? '#ea580c' : '#27272a';
+            ctx.fillRect(pad + (cx + dx) * cellSize, pad + (cy + dy) * cellSize, cellSize - 1, cellSize - 1);
+          }
+        }
+      });
+
+      ctx.fillStyle = '#27272a';
+      for (let r = 0; r < cells; r++) {
+        for (let c = 0; c < cells; c++) {
+          const inCorner =
+            (r < 3 && c < 3) ||
+            (r < 3 && c >= cells - 3) ||
+            (r >= cells - 3 && c < 3);
+          if (inCorner) continue;
+          const bit = ((hash >>> ((r * cells + c) % 24)) ^ (r * 7 + c * 13 + text.charCodeAt(c % text.length))) & 1;
+          if (bit) {
+            ctx.fillRect(pad + c * cellSize, pad + r * cellSize, cellSize - 1, cellSize - 1);
+          }
+        }
+      }
+    }
+
+    function handleCustomerSubmit(e) {
+      e.preventDefault();
+      const phone = document.getElementById('cust-phone').value.trim();
+      const name = document.getElementById('cust-name').value.trim();
+      if (!phone) return;
+
+      const store = loadStore();
+      let cust = store.customers.find(c => c.phone === phone);
+      if (!cust) {
+        if (!name) {
+          showBanner('هذا الرقم غير مسجل، اكتب اسمك لإنشاء كارت جديد.', true);
+          return;
+        }
+        cust = { id: 'c_' + Date.now(), name, phone, points: 0 };
+        store.customers.push(cust);
+        saveStore(store);
+      }
+
+      document.getElementById('customer-login-box').classList.add('hidden');
+      document.getElementById('customer-card-box').classList.remove('hidden');
+      document.getElementById('card-name').textContent = cust.name;
+      document.getElementById('card-phone').textContent = cust.phone;
+      document.getElementById('card-points').textContent = cust.points;
+      document.getElementById('qr-val').textContent = cust.phone;
+      drawVisualMatrix(cust.phone);
+    }
+
+    function logoutCustomer() {
+      document.getElementById('customer-login-box').classList.remove('hidden');
+      document.getElementById('customer-card-box').classList.add('hidden');
+    }
+
+    async function startQrScanner() {
+      if (typeof window.Html5Qrcode === 'undefined') {
+        showBanner('قارئ الكاميرا غير متاح حالياً؛ اكتب رقم الموبايل واضغط بحث.', true);
+        return;
+      }
+      if (isQrRunning) return;
+
+      const box = document.getElementById('qr-scanner-box');
+      const statusEl = document.getElementById('qr-status');
+      const startBtn = document.getElementById('btn-start-qr');
+      const stopBtn = document.getElementById('btn-stop-qr');
+
+      box.classList.remove('hidden');
+      statusEl.textContent = 'جاري فتح الكاميرا...';
+
+      if (!qrScanner) {
+        qrScanner = new window.Html5Qrcode('qr-reader');
+      }
+
+      const onScanSuccess = async (decodedText) => {
+        const cleanPhone = (decodedText || '').trim();
+        if (!cleanPhone) return;
+        statusEl.textContent = 'تم قراءة QR: ' + cleanPhone;
+        await stopQrScanner();
+        document.getElementById('cashier-search-phone').value = cleanPhone;
+        findCashierCustomer(true);
+      };
+
+      try {
+        isQrRunning = true;
+        startBtn.classList.add('hidden');
+        stopBtn.classList.remove('hidden');
+        await qrScanner.start(
+          { facingMode: 'environment' },
+          { fps: 10, qrbox: { width: 210, height: 210 } },
+          onScanSuccess,
+          () => {}
+        );
+        statusEl.textContent = 'الكاميرا جاهزة للمسح';
+      } catch (_) {
+        isQrRunning = false;
+        startBtn.classList.remove('hidden');
+        stopBtn.classList.add('hidden');
+        box.classList.add('hidden');
+        showBanner('تعذر تشغيل الكاميرا (افتح الموقع على رابط HTTPS واسمح للكاميرا، أو ابحث بالرقم مباشرة).', true);
+      }
+    }
+
+    async function stopQrScanner() {
+      const box = document.getElementById('qr-scanner-box');
+      const startBtn = document.getElementById('btn-start-qr');
+      const stopBtn = document.getElementById('btn-stop-qr');
+
+      startBtn.classList.remove('hidden');
+      stopBtn.classList.add('hidden');
+      box.classList.add('hidden');
+
+      if (qrScanner && isQrRunning) {
+        try {
+          await qrScanner.stop();
+          await qrScanner.clear();
+        } catch (_) {}
+      }
+      isQrRunning = false;
+    }
+
+    function findCashierCustomer(fromQr = false) {
+      const phone = document.getElementById('cashier-search-phone').value.trim();
+      if (!phone) {
+        showBanner('امسح كود QR أو اكتب رقم الموبايل أولاً.', true);
+        return;
+      }
+      const store = loadStore();
+      const cust = store.customers.find(c => c.phone === phone);
+      if (!cust) {
+        showBanner('العميل غير مسجل؛ سجّله أولاً من تبويب العملاء.', true);
+        return;
+      }
+      activeCashierCustomer = cust;
+      document.getElementById('cashier-customer-panel').classList.remove('hidden');
+      document.getElementById('c-name').textContent = cust.name;
+      document.getElementById('c-phone').textContent = cust.phone;
+      document.getElementById('c-points').textContent = cust.points + ' نقطة';
+
+      if (fromQr) {
+        showBanner(`تم مسح QR للعميل ${cust.name} — يمكنك الآن إضافة فاتورة أو خصم نقاط.`);
+      }
+    }
+
+    function addPoints() {
+      if (!activeCashierCustomer) return;
+      const amount = parseFloat(document.getElementById('bill-amount').value);
+      if (!amount || amount <= 0) {
+        showBanner('أدخل قيمة فاتورة صحيحة.', true);
+        return;
+      }
+      const store = loadStore();
+      const idx = store.customers.findIndex(c => c.phone === activeCashierCustomer.phone);
+      if (idx === -1) return;
+
+      const earned = Math.floor(amount * Number(store.settings.points_per_pound || 1));
+      store.customers[idx].points += earned;
+      store.transactions.unshift({
+        name: store.customers[idx].name,
+        phone: store.customers[idx].phone,
+        change: earned,
+        note: `فاتورة بقيمة ${amount} ج.م`
+      });
+      saveStore(store);
+      document.getElementById('bill-amount').value = '';
+      showBanner(`تمت إضافة ${earned} نقطة للعميل ${store.customers[idx].name}. الرصيد الجديد: ${store.customers[idx].points} نقطة.`);
+      findCashierCustomer(false);
+    }
+
+    function redeemPoints() {
+      if (!activeCashierCustomer) return;
+      const pts = parseInt(document.getElementById('redeem-points').value, 10);
+      if (!pts || pts <= 0) {
+        showBanner('أدخل عدد نقاط صحيح لخصمها.', true);
+        return;
+      }
+      const store = loadStore();
+      const idx = store.customers.findIndex(c => c.phone === activeCashierCustomer.phone);
+      if (idx === -1) return;
+
+      const current = Number(store.customers[idx].points || 0);
+      if (current < pts) {
+        showBanner(`رصيد العميل (${current} نقطة) أقل من المطلوب خصمه (${pts} نقطة).`, true);
+        return;
+      }
+      store.customers[idx].points = current - pts;
+      store.transactions.unshift({
+        name: store.customers[idx].name,
+        phone: store.customers[idx].phone,
+        change: -pts,
+        note: `خصم ${pts} نقطة`
+      });
+      saveStore(store);
+      document.getElementById('redeem-points').value = '';
+      showBanner(`تم خصم ${pts} نقطة من رصيد ${store.customers[idx].name}. الرصيد المتبقي: ${store.customers[idx].points} نقطة.`);
+      findCashierCustomer(false);
+    }
+
+    function handleOwnerLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('owner-email-input').value.trim().toLowerCase();
+      const pass = document.getElementById('owner-password-input').value;
+      const store = loadStore();
+
+      const expectedEmail = String(store.settings.owner_email || OWNER_EMAIL).toLowerCase();
+      const expectedPass = String(store.settings.owner_pass || 'ElAmin@2026');
+
+      if (email !== expectedEmail || pass !== expectedPass) {
+        showBanner('بيانات دخول المالك غير صحيحة.', true);
+        return;
+      }
+      ownerAuthenticated = true;
+      document.getElementById('owner-session-label').textContent = 'حساب المالك المفعّل: ' + email;
+      openOwnerTab();
+    }
+
+    function logoutOwner() {
+      ownerAuthenticated = false;
+      openCustomerTab();
+      showBanner('تم تسجيل الخروج من لوحة المالك.');
+    }
+
+    function renderOwnerDashboard() {
+      if (!ownerAuthenticated) return openOwnerTab();
+      const store = loadStore();
+      document.getElementById('stat-customers').textContent = store.customers.length;
+      document.getElementById('stat-points').textContent = store.customers.reduce((s, c) => s + Number(c.points || 0), 0);
+      document.getElementById('stat-rate').textContent = store.settings.points_per_pound;
+      document.getElementById('set-rate').value = store.settings.points_per_pound;
+      document.getElementById('set-cashier-pin').value = store.settings.cashier_pin;
+      document.getElementById('set-owner-pass').value = '';
+
+      const list = document.getElementById('transactions-list');
+      if (!store.transactions.length) {
+        list.innerHTML = '<p style="color:#52525b;">لا توجد عمليات مسجلة بعد.</p>';
+        return;
+      }
+      list.innerHTML = store.transactions.slice(0, 20).map(t => `
+        <div class="tx-item">
+          <div>
+            <strong>${t.name}</strong> <span style="font-size:11px;color:#52525b;">(${t.phone})</span>
+            <div style="font-size:12px;color:#3f3f46;">${t.note}</div>
+          </div>
+          <span class="${t.change >= 0 ? 'plus' : 'minus'}">${t.change >= 0 ? '+' : ''}${t.change} نقطة</span>
+        </div>
+      `).join('');
+    }
+
+    function saveSettings() {
+      if (!ownerAuthenticated) return;
+      const store = loadStore();
+      const rate = parseFloat(document.getElementById('set-rate').value);
+      const pin = document.getElementById('set-cashier-pin').value.trim();
+      const newPass = document.getElementById('set-owner-pass').value;
+
+      if (!rate || rate <= 0) {
+        showBanner('أدخل نسبة نقاط صحيحة.', true);
+        return;
+      }
+      store.settings.points_per_pound = rate;
+      if (pin) store.settings.cashier_pin = pin;
+      if (newPass && newPass.trim().length >= 4) {
+        store.settings.owner_pass = newPass.trim();
+      }
+      saveStore(store);
+      showBanner('تم حفظ الإعدادات بنجاح.');
+      renderOwnerDashboard();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('nav-customer').addEventListener('click', openCustomerTab);
+      document.getElementById('nav-cashier').addEventListener('click', openCashierTab);
+      document.getElementById('nav-owner').addEventListener('click', openOwnerTab);
+      document.getElementById('customer-form').addEventListener('submit', handleCustomerSubmit);
+      document.getElementById('btn-logout-customer').addEventListener('click', logoutCustomer);
+      document.getElementById('btn-find-customer').addEventListener('click', () => findCashierCustomer(false));
+      document.getElementById('btn-start-qr').addEventListener('click', startQrScanner);
+      document.getElementById('btn-stop-qr').addEventListener('click', stopQrScanner);
+      document.getElementById('btn-add-points').addEventListener('click', addPoints);
+      document.getElementById('btn-redeem-points').addEventListener('click', redeemPoints);
+      document.getElementById('owner-login-form').addEventListener('submit', handleOwnerLogin);
+      document.getElementById('btn-owner-logout').addEventListener('click', logoutOwner);
+      document.getElementById('btn-save-settings').addEventListener('click', saveSettings);
+    });
+  </script>
+</body>
+</html>
